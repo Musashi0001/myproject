@@ -1,0 +1,51 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&family=Zen+Maru+Gothic&family=Zen+Old+Mincho:wght@400;500;600;700;900&display=swap');
+
+body {
+	font-family: "Zen Kaku Gothic New", sans-serif;
+	background-color: #f8f9fa;
+	margin: 0;
+	padding: 20px;
+}
+
+.container {
+	max-width: 100%;
+	margin: auto;
+	background: #ffffff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	text-align: center;
+	color: #333333;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+th,
+td {
+	text-align: left;
+}
+
+th {
+	background-color: #4aa1ff;
+	color: white;
+}
+
+td {
+	font-size: 20px;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+tr:hover {
+	background-color: #e9ecef;
+}
