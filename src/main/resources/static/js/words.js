@@ -51,7 +51,7 @@ function renderWords(words) {
 						<input type="checkbox" ${word.isLearned ? 'checked' : ''} onchange="toggleLearned(${word.id}, this.checked)">
 					</td>
 	                <td>${formatDate(word.updatedAt)}</td>
-	                <td></td> <!-- メモは空欄のまま -->
+	                <td>${word.memo || ''}</td>
 	            `;
 
 		// テーブルに行を追加
