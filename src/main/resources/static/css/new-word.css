@@ -1,0 +1,153 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&family=Zen+Maru+Gothic&family=Zen+Old+Mincho:wght@400;500;600;700;900&display=swap');
+
+body {
+	font-family: "Zen Kaku Gothic New", sans-serif;
+	background-color: #f8f9fa;
+	margin: 0;
+	padding: 20px;
+}
+
+.container {
+	max-width: 100%;
+	margin: auto;
+	background: #ffffff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	text-align: center;
+	color: #333333;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+label {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.required {
+	color: red;
+}
+
+/* テキストボックスのデザイン */
+input[type="text"] {
+	width: 100%;
+	border: none;
+	border-bottom: 2px solid #ddd;
+	font-size: 20px;
+	box-sizing: border-box;
+	transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+	outline: none;
+	border-bottom: 2px solid #50c878;
+}
+
+/* テキストエリアのデザイン */
+textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	font-size: 20px;
+	box-sizing: border-box;
+	background-color: #f9f9f9;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	resize: vertical;
+}
+
+textarea:focus {
+	outline: none;
+	border: 1px solid #50c878;
+	box-shadow: 0 2px 6px rgba(80, 200, 120, 0.4);
+	background-color: #ffffff;
+}
+
+button {
+	padding: 10px 20px;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.btn-primary {
+	background-color: #4aa1ff;
+	color: white;
+	border: none;
+}
+
+.btn-primary:hover {
+	background-color: #3581d8;
+}
+
+.btn-secondary {
+	background-color: #ddd;
+	color: #333;
+	border: none;
+}
+
+.btn-secondary:hover {
+	background-color: #bbb;
+}
+
+.meaning-group {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.meaning-group select {
+	width: auto;
+	flex-grow: 1;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.meaning-group input.meaning {
+	flex-grow: 1; /* 残りのスペースを埋める */
+	width: 100%; /* 固定幅を解除 */
+}
+
+.button-group {
+	display: flex;
+	gap: 5px; /* ボタン間の間隔を小さく設定 */
+}
+
+.add-meaning-btn, .remove-meaning-btn {
+	padding: 8px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.add-meaning-btn {
+	background-color: #50c878; /* 緑色に設定 */
+	color: white;
+	border: none;
+}
+
+.add-meaning-btn:hover {
+	background-color: #3ea862;
+}
+
+.remove-meaning-btn {
+	background-color: #ff6b6b; /* 赤色に設定 */
+	color: white;
+	border: none;
+}
+
+.remove-meaning-btn:hover {
+	background-color: #e05a5a;
+}
+

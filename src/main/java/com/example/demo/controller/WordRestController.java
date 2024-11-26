@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,25 @@ public class WordRestController {
 	@GetMapping
 	public List<Word> getAllWords() {
 		return wordService.getAllWords();
+	}
+
+	@PostMapping
+	public ResponseEntity<Map<String, String>> addWord(@RequestBody Word newWord) {
+		Map<String, String> errors = new HashMap<>();
+
+		if (newWord.getWord() == null || newWord.getWord().trim().isEmpty()) {
+			errors.put("word", "単語を入力してください");
+		}
+		if (newWord.getMeaning() == null || newWord.getMeaning().trim().isEmpty()) {
+			errors.put("meaning", "意味を入力してください");
+		}
+
+		if (!errors.isEmpty()) {
+			return ResponseEntity.badRequest().body(errors);
+		}
+
+		wordService.saveWord(newWord);
+		return ResponseEntity.ok(null); // 成功時のレスポンスは null または空レスポンス
 	}
 
 	@PutMapping("/{id}/marked")

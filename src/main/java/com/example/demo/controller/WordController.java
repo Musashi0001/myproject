@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WordController {
 	
 	@GetMapping
-	public String getWords() {
+	public String words() {
 		return "words";
+	}
+	
+	@GetMapping("/new-word")
+	public String newWords() {
+		return "new-word";
 	}
 
 }

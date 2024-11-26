@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/new-word.css}">
+	<title>単語を登録する</title>
+</head>
+
+<body>
+	<div class="container">
+		<h1>単語を登録する</h1>
+		<form id="wordForm">
+			<div>
+				<label for="word">単語<span class="required">*</span></label>
+				<input type="text" id="word" name="word" required>
+			</div>
+			<div id="meanings-container">
+				<div class="meaning-group">
+					<div>
+						<label>品詞</label>
+						<select name="partOfSpeech" class="part-of-speech">
+							<option value="" selected></option>
+							<option value="名詞">名詞</option>
+							<option value="動詞">動詞</option>
+							<option value="形容詞">形容詞</option>
+							<option value="副詞">副詞</option>
+							<option value="前置詞">前置詞</option>
+							<option value="接続詞">接続詞</option>
+							<option value="感動詞">感動詞</option>
+							<option value="代名詞">代名詞</option>
+							<option value="冠詞">冠詞</option>
+							<option value="数詞">数詞</option>
+						</select>
+					</div>
+					<div style="flex-grow: 1;">
+						<label for="meaning">意味<span class="required">*</span></label>
+						<input type="text" name="meaning" class="meaning" required>
+					</div>
+					<div class="button-group">
+						<button type="button" class="remove-meaning-btn" onclick="removeMeaning(this)" style="display: none;">削除</button>
+						<button type="button" class="add-meaning-btn" onclick="addMeaning()">＋ 意味を追加</button>
+					</div>
+				</div>
+			</div>
+			<div>
+				<label for="exampleSentence">例文</label>
+				<input type="text" id="exampleSentence" name="exampleSentence">
+			</div>
+			<div>
+				<label for="memo">メモ</label>
+				<textarea id="memo" name="memo"></textarea>
+			</div>
+			<div class="button-group">
+				<button type="button" onclick="history.back()" class="btn-secondary">戻る</button>
+				<button type="button" onclick="submitForm()" class="btn-primary">登録</button>
+			</div>
+		</form>
+	</div>
+
+	<script th:src="@{/js/new-word.js}"></script>
+</body>
+
+</html>
