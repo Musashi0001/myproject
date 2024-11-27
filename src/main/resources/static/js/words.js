@@ -1,15 +1,161 @@
-window.onload = fetchWords;
+// 初期設定
+window.onload = () => {
+	fetchWords();
+	setupSortAndFilterEvents();
+	setupSearch();
+};
 
+// ソート・フィルタ状態を保持するオブジェクト
+let sortState = {
+	word: 'default', // 'asc' | 'default'
+	mark: 'default', // 'marked' | 'unmarked' | 'default'
+	learned: 'default', // 'checked' | 'unchecked' | 'default'
+};
+
+// 初期データを保持
+let allWords = [];
+
+// fetchWords: データを取得し、ソート・フィルタ適用
 async function fetchWords() {
 	try {
 		const response = await fetch('http://localhost:8080/api/words');
 		if (!response.ok) throw new Error('データの取得に失敗しました');
 
-		const words = await response.json();
-		renderWords(words);
+		allWords = await response.json(); // データを保持
+		applySortAndFilter(); // 初期表示
 	} catch (error) {
 		console.error('エラー:', error);
 	}
+}
+
+// ソート・フィルタを適用
+function applySortAndFilter() {
+	let filteredWords = [...allWords];
+
+	// マークによるフィルタリング
+	if (sortState.mark === 'marked') {
+		filteredWords = filteredWords.filter(word => word.isMarked);
+	} else if (sortState.mark === 'unmarked') {
+		filteredWords = filteredWords.filter(word => !word.isMarked);
+	}
+
+	// チェックによるフィルタリング
+	if (sortState.learned === 'checked') {
+		filteredWords = filteredWords.filter(word => word.isLearned);
+	} else if (sortState.learned === 'unchecked') {
+		filteredWords = filteredWords.filter(word => !word.isLearned);
+	}
+
+	// 単語のソート
+	if (sortState.word === 'asc') {
+		filteredWords.sort((a, b) => a.word.localeCompare(b.word));
+	}
+
+	// 検索結果と連携
+	applySearch(filteredWords);
+
+	// ツールチップとインジケーターを更新
+	updateTooltips();
+	updateSortIndicators();
+}
+
+// 検索適用
+function applySearch(words = allWords) {
+	const query = document.getElementById('search').value.toLowerCase();
+	const filter = document.getElementById('search-filter').value;
+
+	// フィルタ条件に基づく検索
+	const filteredWords = words.filter(word => {
+		if (filter === 'word') {
+			return word.word.toLowerCase().includes(query);
+		} else if (filter === 'meaning') {
+			return word.meaning.toLowerCase().includes(query);
+		} else if (filter === 'example') {
+			return word.exampleSentence?.toLowerCase().includes(query);
+		} else {
+			// すべてを対象
+			return (
+				word.word.toLowerCase().includes(query) ||
+				word.meaning.toLowerCase().includes(query) ||
+				word.exampleSentence?.toLowerCase().includes(query)
+			);
+		}
+	});
+
+	// 結果がない場合のUI
+	if (filteredWords.length === 0) {
+		const tbody = document.querySelector('table tbody');
+		tbody.innerHTML = '<tr><td colspan="4">結果が見つかりません</td></tr>';
+		return;
+	}
+
+	// レンダリング
+	renderWords(filteredWords);
+}
+
+// ソート・フィルターボタンにイベントリスナーを追加
+function setupSortAndFilterEvents() {
+	// "単語"列: アルファベット昇順とデフォルト順
+	document.querySelector('th:nth-child(1)').addEventListener('click', () => {
+		sortState.word = sortState.word === 'asc' ? 'default' : 'asc';
+		applySortAndFilter();
+	});
+
+	// "マーク"列: マーク済み、未マーク、デフォルト順
+	document.querySelector('th:nth-child(3)').addEventListener('click', () => {
+		sortState.mark = sortState.mark === 'default' ? 'marked' :
+			sortState.mark === 'marked' ? 'unmarked' : 'default';
+		applySortAndFilter();
+	});
+
+	// "覚えた！"列: チェック済み、未チェック、デフォルト順
+	document.querySelector('th:nth-child(4)').addEventListener('click', () => {
+		sortState.learned = sortState.learned === 'default' ? 'checked' :
+			sortState.learned === 'checked' ? 'unchecked' : 'default';
+		applySortAndFilter();
+	});
+}
+
+// 検索対象オプション
+function setupSearch() {
+	const searchInput = document.getElementById('search');
+	const searchFilter = document.getElementById('search-filter');
+
+	searchInput.addEventListener('input', () => applySortAndFilter());
+	searchFilter.addEventListener('change', () => applySortAndFilter());
+}
+
+// ツールチップの更新
+function updateTooltips() {
+	const tooltips = {
+		word: document.querySelector('th:nth-child(1)'),
+		mark: document.querySelector('th:nth-child(3)'),
+		learned: document.querySelector('th:nth-child(4)'),
+	};
+
+	if (sortState.word === 'default') tooltips.word.title = 'クリックでアルファベット昇順に並び替え';
+	else tooltips.word.title = 'クリックでデフォルト順に戻す';
+
+	if (sortState.mark === 'default') tooltips.mark.title = 'クリックでマーク済みを表示';
+	else if (sortState.mark === 'marked') tooltips.mark.title = 'クリックで未マークを表示';
+	else tooltips.mark.title = 'クリックでデフォルト順に戻す';
+
+	if (sortState.learned === 'default') tooltips.learned.title = 'クリックでチェック済みを表示';
+	else if (sortState.learned === 'checked') tooltips.learned.title = 'クリックで未チェックを表示';
+	else tooltips.learned.title = 'クリックでデフォルト順に戻す';
+}
+
+// ソートインジケーターの更新
+function updateSortIndicators() {
+	const indicators = {
+		word: document.getElementById('word-indicator'),
+		mark: document.getElementById('mark-indicator'),
+		learned: document.getElementById('learned-indicator'),
+	};
+
+	indicators.word.textContent = sortState.word === 'asc' ? '▲' : '';
+	indicators.mark.textContent = sortState.mark === 'marked' ? '★' : sortState.mark === 'unmarked' ? '☆' : '';
+	indicators.learned.textContent = sortState.learned === 'checked' ? '✔' : sortState.learned === 'unchecked' ? '×' : '';
 }
 
 function formatDate(dateStr) {
@@ -122,7 +268,13 @@ async function toggleMarked(id, isChecked) {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ isMarked: isChecked }),
 		});
-		console.log(`Word ${id} marked: ${isChecked}`);
+
+		// ローカルデータを更新
+		const word = allWords.find(word => word.id === parseInt(id, 10));
+		if (word) word.isMarked = isChecked;
+
+		// ソート・フィルタを適用して再描画
+		applySortAndFilter();
 	} catch (error) {
 		console.error('更新エラー:', error);
 	}
@@ -135,7 +287,13 @@ async function toggleLearned(id, isChecked) {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ isLearned: isChecked }),
 		});
-		console.log(`Word ${id} learned: ${isChecked}`);
+
+		// ローカルデータを更新
+		const word = allWords.find(word => word.id === parseInt(id, 10));
+		if (word) word.isLearned = isChecked;
+
+		// ソート・フィルタを適用して再描画
+		applySortAndFilter();
 	} catch (error) {
 		console.error('更新エラー:', error);
 	}

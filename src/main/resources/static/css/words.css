@@ -8,6 +8,13 @@ body {
 	padding: 20px;
 }
 
+button {
+	padding: 10px 20px;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
 .container {
 	max-width: 100%;
 	margin: auto;
@@ -20,6 +27,58 @@ body {
 h1 {
 	text-align: center;
 	color: #333333;
+}
+
+/* 検索コンテナ */
+.search-container {
+	margin-bottom: 20px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.search-container input[type="text"] {
+	width: 30%;	
+	border: none;
+	border-bottom: 2px solid #ddd;
+	font-size: 20px;
+	box-sizing: border-box;
+	transition: border-color 0.3s ease;
+}
+
+.search-container input[type="text"]:focus {
+	outline: none;
+	border-bottom: 2px solid #50c878
+}
+
+/* 検索フィルタ */
+.search-container select {
+	font-size: 16px;
+	padding: 5px 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+/* 追加のフィルタUI */
+.additional-filters {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.additional-filters button {
+	margin: 5px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	background-color: #4aa1ff;
+	color: white;
+	cursor: pointer;
+}
+
+.additional-filters button:hover {
+	background-color: #3581d8;
 }
 
 table {
@@ -43,7 +102,7 @@ th:nth-child(3),
 th:nth-child(4),
 td:nth-child(3),
 td:nth-child(4) {
-    width: 75px;
+    width: 100px;
     text-align: center;
 }
 
@@ -103,14 +162,6 @@ input[type="checkbox"] {
 .button-container {
 	display: flex;
 	justify-content: flex-end; /* ボタンを右寄せ */
-	margin-bottom: 15px; /* 下にスペースを確保 */
-}
-
-button {
-	padding: 10px 20px;
-	border-radius: 4px;
-	font-size: 16px;
-	cursor: pointer;
 }
 
 .btn-primary {
@@ -122,3 +173,38 @@ button {
 .btn-primary:hover {
 	background-color: #3581d8;
 }
+
+/* ソート可能なヘッダーにポインターを適用 */
+th.sortable {
+	cursor: pointer;
+}
+
+th.sortable:hover {
+	background-color: #3581d8;
+}
+
+/* ソートインジケーターのスタイル */
+.sort-indicator {
+	cursor: pointer;
+	font-size: 20px;
+	color: #ffffff;
+}
+
+/* マーク状態 */
+.sort-indicator.marked {
+	color: #f0c419;
+}
+
+.sort-indicator.unmarked {
+	color: #ccc; 
+}
+
+/* チェック状態 */
+.sort-indicator.checked {
+	color: #4caf50; 
+}
+
+.sort-indicator.unchecked {
+	color: #ff5252; 
+}
+

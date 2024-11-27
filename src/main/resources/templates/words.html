@@ -11,17 +11,30 @@
 <body>
 	<div class="container">
 		<h1>単語帳</h1>
+		<div class="search-container">
+			<label for="search">検索</label>
+			<input type="text" id="search" placeholder="キーワードを入力">
+			<select id="search-filter">
+				<option value="all">すべて</option>
+				<option value="word">単語のみ</option>
+				<option value="meaning">意味のみ</option>
+				<option value="example">例文のみ</option>
+			</select>
+		</div>
+		<div class="button-container">
+			<button type="button" onclick="location.href='/words/new-word'" class="btn-primary">単語登録</button>
+		</div>
 		<table border="1">
 			<caption>単語一覧</caption>
-			<div class="button-container">
-				<button type="button" onclick="location.href='/words/new-word'" class="btn-primary">単語登録</button>
-			</div>
 			<thead>
 				<tr>
-					<th scope="col">単語</th>
+					<th scope="col" class="sortable" title="クリックでアルファベット昇順に並び替え">単語 <span class="sort-indicator"
+							id="word-indicator"></span></th>
 					<th scope="col">意味</th>
-					<th scope="col">マーク</th>
-					<th scope="col">覚えた！</th>
+					<th scope="col" class="sortable" title="クリックでマーク済みを表示">マーク <span class="sort-indicator"
+							id="mark-indicator"></span></th>
+					<th scope="col" class="sortable" title="クリックでチェック済みを表示">覚えた！ <span class="sort-indicator"
+							id="learned-indicator"></span></th>
 				</tr>
 			</thead>
 			<tbody>
