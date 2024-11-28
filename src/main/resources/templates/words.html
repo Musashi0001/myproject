@@ -37,11 +37,19 @@
 							id="learned-indicator"></span></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody title="右クリックで編集・削除">
 				<!-- jsで生成 -->
 			</tbody>
 		</table>
 	</div>
+	
+	<div id="context-menu" class="context-menu">
+		<ul>
+			<li id="edit" onclick="editWord(event)">編集</li>
+			<li id="delete" onclick="deleteWord(event)">削除</li>
+		</ul>
+	</div>
+
 	<script th:src="@{/js/words.js}"></script>
 </body>
 

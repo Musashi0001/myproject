@@ -177,6 +177,8 @@ function renderWords(words) {
 		// メイン行を作成
 		const row = createMainRow(word);
 		const detailRow = createDetailRow(word);
+		row.setAttribute('data-id', word.id); // IDを追加
+		detailRow.setAttribute('data-id', word.id); // IDを追加
 
 		// メイン行クリック時に詳細行をトグル
 		row.addEventListener('click', (event) => {
@@ -296,5 +298,79 @@ async function toggleLearned(id, isChecked) {
 		applySortAndFilter();
 	} catch (error) {
 		console.error('更新エラー:', error);
+	}
+}
+
+let wordId = null;
+
+document.addEventListener('contextmenu', (event) => {
+	event.preventDefault();
+
+	// 右クリックされた要素が行（tr）か確認
+	const row = event.target.closest('tr');
+	if (!row || row.parentElement.tagName === 'THEAD') {
+		// 行以外、またはthead内の要素の場合はメニューを表示しない
+		return;
+	}
+
+	// コンテキストメニュー要素を取得
+	const menu = document.getElementById('context-menu');
+
+	// スクロール量を考慮してメニュー位置を設定
+	let menuX = event.pageX;
+	let menuY = event.pageY;
+
+	// ウィンドウの幅・高さとメニューの幅・高さを取得
+	const menuWidth = menu.offsetWidth;
+	const menuHeight = menu.offsetHeight;
+	const windowWidth = window.innerWidth;
+	const windowHeight = window.innerHeight;
+
+	// 画面右端・下端にはみ出さないよう調整
+	if (menuX + menuWidth > windowWidth + window.scrollX) {
+		menuX = windowWidth + window.scrollX - menuWidth - 10;
+	}
+	if (menuY + menuHeight > windowHeight + window.scrollY) {
+		menuY = windowHeight + window.scrollY - menuHeight - 10;
+	}
+
+	menu.style.left = `${menuX}px`;
+	menu.style.top = `${menuY}px`;
+	menu.style.display = 'block';
+
+	wordId = event.target.closest('tr')?.dataset?.id || null;
+});
+
+// クリックした場合にメニューを非表示
+document.addEventListener('click', () => {
+	const menu = document.getElementById('context-menu');
+	menu.style.display = 'none';
+});
+
+// 編集ボタンの処理
+function editWord() {
+	if (!wordId) return;
+	window.location.href = `/words/new-word?id=${wordId}`;
+}
+
+// 削除ボタンの処理
+async function deleteWord() {
+	if (!wordId) return;
+	if (!confirm('本当に削除しますか？')) return;
+
+	try {
+		const response = await fetch(`http://localhost:8080/api/words/${wordId}`, {
+			method: 'DELETE',
+		});
+
+		if (response.ok) {
+			alert('削除しました！');
+			location.reload(); // ページをリロードして更新
+		} else {
+			alert('削除に失敗しました。');
+		}
+	} catch (error) {
+		console.error('削除エラー:', error);
+		alert('エラーが発生しました。');
 	}
 }

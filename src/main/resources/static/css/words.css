@@ -61,30 +61,14 @@ h1 {
 	border-radius: 4px;
 }
 
-/* 追加のフィルタUI */
-.additional-filters {
-	margin-top: 10px;
-	text-align: center;
-}
-
-.additional-filters button {
-	margin: 5px;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	background-color: #4aa1ff;
-	color: white;
-	cursor: pointer;
-}
-
-.additional-filters button:hover {
-	background-color: #3581d8;
-}
-
 table {
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 20px;
+}
+
+tr {
+	transition: background-color 0.3s ease;
 }
 
 th,
@@ -168,6 +152,7 @@ input[type="checkbox"] {
 	background-color: #4aa1ff;
 	color: white;
 	border: none;
+	transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover {
@@ -177,6 +162,7 @@ input[type="checkbox"] {
 /* ソート可能なヘッダーにポインターを適用 */
 th.sortable {
 	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 th.sortable:hover {
@@ -208,3 +194,55 @@ th.sortable:hover {
 	color: #ff5252; 
 }
 
+/* コンテキストメニュー全体 */
+.context-menu {
+    position: absolute; /* 右クリック位置に配置するため */
+    display: none; /* 初期状態では非表示 */
+    background-color: #ffffff; /* 背景色 */
+    border: 1px solid #ccc; /* 枠線 */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影 */
+    border-radius: 4px; /* 角を丸める */
+    z-index: 1000; /* 他の要素より前面に表示 */
+    width: 150px; /* メニューの幅 */
+    padding: 5px 0; /* 上下の余白 */
+}
+
+/* コンテキストメニュー内のリスト */
+.context-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* 各メニュー項目 */
+.context-menu li {
+    padding: 10px; 
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+	font-weight: bold;
+	transition: background-color 0.3s ease;
+}
+
+/* ホバー時のスタイル */
+.context-menu li:hover {
+    background-color: #f0f0f0; /* ホバー時の背景色 */
+}
+
+.context-menu li#edit {
+	color: #00ad34;
+	transition: color 0.3s ease;
+}
+
+.context-menu li#delete {
+	color: red;
+	transition: color 0.3s ease;
+}
+
+.context-menu li#edit:hover {
+	color: #00611d;
+}
+
+.context-menu li#delete:hover {
+	color: #7d0000;
+}

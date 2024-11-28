@@ -19,8 +19,27 @@ public class WordService {
 		return wordRepository.findAll();
 	}
 
+	public Word getWordById(Long id) {
+		return wordRepository.findById(id).orElse(null);
+	}
+
 	public Word saveWord(Word word) {
 		return wordRepository.save(word);
+	}
+
+	public Word updateWord(Long id, Word updatedWord) {
+		Word existingWord = wordRepository.findById(id).orElse(null);
+		if (existingWord == null) {
+			return null; // 更新対象が見つからない場合
+		}
+
+		// フィールドを更新
+		existingWord.setWord(updatedWord.getWord());
+		existingWord.setMeaning(updatedWord.getMeaning());
+		existingWord.setExampleSentence(updatedWord.getExampleSentence());
+		existingWord.setMemo(updatedWord.getMemo());
+
+		return wordRepository.save(existingWord); // 更新したデータを保存
 	}
 
 	public Word updateMarked(Long id, Boolean isMarked) {
@@ -36,4 +55,13 @@ public class WordService {
 		word.setIsLearned(isLearned);
 		return wordRepository.save(word);
 	}
+
+	public boolean deleteWord(Long id) {
+		if (wordRepository.existsById(id)) {
+			wordRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
+
 }
