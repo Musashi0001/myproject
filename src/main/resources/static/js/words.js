@@ -22,6 +22,7 @@ async function fetchWords() {
 		if (!response.ok) throw new Error('データの取得に失敗しました');
 
 		allWords = await response.json(); // データを保持
+		allWords.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); //新しい順
 		applySortAndFilter(); // 初期表示
 	} catch (error) {
 		console.error('エラー:', error);
@@ -49,6 +50,9 @@ function applySortAndFilter() {
 	// 単語のソート
 	if (sortState.word === 'asc') {
 		filteredWords.sort((a, b) => a.word.localeCompare(b.word));
+	} else {
+		// デフォルトは新しい順
+		filteredWords.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 	}
 
 	// 検索結果と連携

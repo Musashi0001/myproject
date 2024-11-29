@@ -1,153 +1,218 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&family=Zen+Maru+Gothic&family=Zen+Old+Mincho:wght@400;500;600;700;900&display=swap');
 
+/* ライトモードとダークモードのカラースキーム設定 */
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #333333;
+    --container-bg-color: #ffffff;
+    --input-bg-color: trans-parent;
+    --primary-btn-bg: #4aa1ff;
+    --primary-btn-hover-bg: #3581d8;
+    --secondary-btn-bg: #ddd;
+    --secondary-btn-hover-bg: #bbb;
+    --success-btn-bg: #50c878;
+    --success-btn-hover-bg: #3ea862;
+    --danger-btn-bg: #ff6b6b;
+    --danger-btn-hover-bg: #e05a5a;
+    --border-color: #ddd;
+    --focus-border-color: #50c878;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --input-focus-shadow: rgba(80, 200, 120, 0.4);
+}
+
+/* ダークモードのカラースキーム */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --container-bg-color: #1e1e1e;
+    --input-bg-color: trans-parent;
+    --primary-btn-bg: #3581d8;
+    --primary-btn-hover-bg: #1e5fb2;
+    --secondary-btn-bg: #555555;
+    --secondary-btn-hover-bg: #444444;
+    --success-btn-bg: #3ea862;
+    --success-btn-hover-bg: #2b864e;
+    --danger-btn-bg: #e05a5a;
+    --danger-btn-hover-bg: #b94c4c;
+    --border-color: #444444;
+    --focus-border-color: #76d7c4;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --input-focus-shadow: rgba(118, 215, 196, 0.4);
+}
+
+/* グローバルスタイル */
 body {
-	font-family: "Zen Kaku Gothic New", sans-serif;
-	background-color: #f8f9fa;
-	margin: 0;
-	padding: 20px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
-	max-width: 100%;
-	margin: auto;
-	background: #ffffff;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: auto;
+    background: var(--container-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 h1 {
-	text-align: center;
-	color: #333333;
+    text-align: center;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
 form {
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 label {
-	font-weight: bold;
-	margin-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
 .required {
-	color: red;
+    color: red;
+    transition: color 0.3s ease;
 }
 
 /* テキストボックスのデザイン */
 input[type="text"] {
-	width: 100%;
-	border: none;
-	border-bottom: 2px solid #ddd;
-	font-size: 20px;
-	box-sizing: border-box;
-	transition: border-color 0.3s ease;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+    background-color: var(--input-bg-color);
+    font-size: 20px;
+	color: var(--text-color);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 input[type="text"]:focus {
-	outline: none;
-	border-bottom: 2px solid #50c878;
+    outline: none;
+    border-bottom: 2px solid var(--focus-border-color);
 }
 
 /* テキストエリアのデザイン */
 textarea {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 6px;
-	font-size: 20px;
-	box-sizing: border-box;
-	background-color: #f9f9f9;
-	transition: border-color 0.3s ease, box-shadow 0.3s ease;
-	resize: vertical;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 20px;
+	color: var(--text-color);
+    box-sizing: border-box;
+    background-color: var(--input-bg-color);
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    resize: vertical;
 }
 
 textarea:focus {
-	outline: none;
-	border: 1px solid #50c878;
-	box-shadow: 0 2px 6px rgba(80, 200, 120, 0.4);
-	background-color: #ffffff;
+    outline: none;
+    border: 1px solid var(--focus-border-color);
+    box-shadow: 0 2px 6px var(--input-focus-shadow);
+    background-color: var(--container-bg-color);
 }
 
+/* ボタンの共通スタイル */
 button {
-	padding: 10px 20px;
-	border-radius: 4px;
-	font-size: 16px;
-	cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-primary {
-	background-color: #4aa1ff;
-	color: white;
-	border: none;
+    background-color: var(--primary-btn-bg);
+    color: white;
+    border: none;
 }
 
 .btn-primary:hover {
-	background-color: #3581d8;
+    background-color: var(--primary-btn-hover-bg);
 }
 
 .btn-secondary {
-	background-color: #ddd;
-	color: #333;
-	border: none;
+    background-color: var(--secondary-btn-bg);
+    color: var(--text-color);
+    border: none;
 }
 
 .btn-secondary:hover {
-	background-color: #bbb;
+    background-color: var(--secondary-btn-hover-bg);
 }
 
 .meaning-group {
-	display: flex;
-	align-items: center;
-	gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .meaning-group select {
-	width: auto;
-	flex-grow: 1;
-	padding: 5px 10px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	font-size: 16px;
+    width: auto;
+    flex-grow: 1;
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+	color: var(--text-color);
+    background-color: var(--input-bg-color);
+	cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* フォーカス時（クリック時）の色変更 */
+.meaning-group select:focus {
+    outline: none;
+    border-color: var(--focus-border-color);
+    background-color: var(--container-bg-color);
 }
 
 .meaning-group input.meaning {
-	flex-grow: 1; /* 残りのスペースを埋める */
-	width: 100%; /* 固定幅を解除 */
+    flex-grow: 1;
+    width: 100%;
+    background-color: var(--input-bg-color);
+    transition: background-color 0.3s ease;
 }
 
 .button-group {
-	display: flex;
-	gap: 5px; /* ボタン間の間隔を小さく設定 */
+    display: flex;
+    gap: 5px;
 }
 
 .add-meaning-btn, .remove-meaning-btn {
-	padding: 8px 12px;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .add-meaning-btn {
-	background-color: #50c878; /* 緑色に設定 */
-	color: white;
-	border: none;
+    background-color: var(--success-btn-bg);
+    color: white;
+    border: none;
 }
 
 .add-meaning-btn:hover {
-	background-color: #3ea862;
+    background-color: var(--success-btn-hover-bg);
 }
 
 .remove-meaning-btn {
-	background-color: #ff6b6b; /* 赤色に設定 */
-	color: white;
-	border: none;
+    background-color: var(--danger-btn-bg);
+    color: white;
+    border: none;
 }
 
 .remove-meaning-btn:hover {
-	background-color: #e05a5a;
+    background-color: var(--danger-btn-hover-bg);
 }
-

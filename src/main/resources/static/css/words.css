@@ -1,84 +1,139 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&family=Zen+Maru+Gothic&family=Zen+Old+Mincho:wght@400;500;600;700;900&display=swap');
 
+/* テーマ変数 */
+:root {
+    /* ライトモード用 */
+    --bg-color: #f8f9fa;
+    --text-color: #333333;
+    --container-bg-color: #ffffff;
+	--input-bg-color: trans-parent;
+    --primary-color: #4aa1ff;
+    --hover-color: #e9ecef;
+	--btn-hover-color: #3581d8;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --border-color: #ddd;
+	--focus-color: #50c878;
+    --star-color: #f0c419;
+    --checkmark-color: #4caf50;
+}
+
+/* ダークモード用 */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --container-bg-color: #1e1e1e;
+	--input-bg-color: trans-parent;
+    --primary-color: #3581d8;
+    --hover-color: #333333;
+	--btn-hover-color: #184a7c;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --border-color: #555555;
+	--focus-color: #76d7c4;	
+    --star-color: #ffd700;
+    --checkmark-color: #76ff03;
+}
+
 body {
-	font-family: "Zen Kaku Gothic New", sans-serif;
-	background-color: #f8f9fa;
-	margin: 0;
-	padding: 20px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.5s ease, color 0.5s ease; /* 背景色と文字色を滑らかに */
 }
 
 button {
-	padding: 10px 20px;
-	border-radius: 4px;
-	font-size: 16px;
-	cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* ボタンの色を滑らかに */
 }
 
 .container {
-	max-width: 100%;
-	margin: auto;
-	background: #ffffff;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: auto;
+    background: var(--container-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease; /* 背景色と影を滑らかに */
 }
 
 h1 {
-	text-align: center;
-	color: #333333;
+    text-align: center;
+    color: var(--text-color);
+    transition: color 0.5s ease; /* 見出しの色を滑らかに */
 }
 
 /* 検索コンテナ */
 .search-container {
-	margin-bottom: 20px;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease; /* 背景色のアニメーション */
 }
 
 .search-container input[type="text"] {
-	width: 30%;	
-	border: none;
-	border-bottom: 2px solid #ddd;
-	font-size: 20px;
-	box-sizing: border-box;
-	transition: border-color 0.3s ease;
+    width: 30%;
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+	color: var(--text-color);
+	background-color: var(--input-bg-color);
+    font-size: 20px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, color 0.3s ease; /* 入力フィールドの色を滑らかに */
 }
 
 .search-container input[type="text"]:focus {
-	outline: none;
-	border-bottom: 2px solid #50c878
+    outline: none;
+    border-bottom: 2px solid var(--focus-color);
 }
 
 /* 検索フィルタ */
 .search-container select {
-	font-size: 16px;
-	padding: 5px 10px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+	color: var(--text-color);
+	background-color: var(--input-bg-color);
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-container select:focus {
+	outline: none;
+    border-color: var(--focus-color);
+    background-color: var(--container-bg-color);
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--container-bg-color);
+    transition: background-color 0.5s ease, color 0.5s ease; /* テーブル背景と文字色 */
 }
 
 tr {
-	transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 th,
 td {
-	text-align: left;
+    text-align: left;
+    color: var(--text-color);
+    transition: color 0.5s ease; /* テキスト色の滑らかさ */
 }
 
 th {
-	background-color: #4aa1ff;
-	color: white;
+    background-color: var(--primary-color);
+    color: white;
+    transition: background-color 0.5s ease, color 0.5s ease; /* ヘッダーの色変更 */
 }
 
 /* チェックボックス列を最小化 */
@@ -92,119 +147,121 @@ td:nth-child(4) {
 
 /* 星（マーク）のデザイン */
 .toggle-mark .custom-star {
-	font-size: 24px;
-	cursor: pointer;
-	color: #ccc;
-	transition: color 0.2s ease;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.3s ease; /* 星の色を滑らかに変更 */
 }
 
 /* チェック済みの星（黄色） */
 .toggle-mark[data-checked="true"] .custom-star {
-	color: #f0c419;
+    color: var(--star-color);
 }
 
 /* チェックマークのデザイン */
 .toggle-learned .custom-checkmark {
-	font-size: 20px;
-	color: #4caf50;
-	cursor: pointer;
-	transition: color 0.2s ease;
+    font-size: 20px;
+    color: var(--checkmark-color);
+    cursor: pointer;
+    transition: color 0.3s ease; /* チェックマークの色変更を滑らかに */
 }
 
 td {
-	font-size: 20px;
+    font-size: 20px;
+    transition: color 0.5s ease; /* データセルの文字色 */
 }
 
 tr:hover {
-	background-color: #e9ecef;
+    background-color: var(--hover-color);
 }
 
 td:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 input[type="checkbox"] {
-    transform: scale(1.5); 
+    transform: scale(1.5);
 }
 
 /* 詳細行のスタイル */
 .details {
     display: none;
-    padding: 10px; 
+    padding: 10px;
 }
 
-/* 詳細行が表示されたときのスタイル */
 .details td {
-	font-size: 18px; 
+    font-size: 18px;
+    transition: color 0.3s ease; /* 詳細行の文字色変更 */
 }
 
 .details .heading {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 /* ボタンを右寄せにするためのコンテナ */
 .button-container {
-	display: flex;
-	justify-content: flex-end; /* ボタンを右寄せ */
+    display: flex;
+    justify-content: flex-end;
 }
 
 .btn-primary {
-	background-color: #4aa1ff;
-	color: white;
-	border: none;
-	transition: background-color 0.3s ease;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease; /* プライマリボタンの色 */
 }
 
 .btn-primary:hover {
-	background-color: #3581d8;
+    background-color: var(--btn-hover-color);
 }
 
 /* ソート可能なヘッダーにポインターを適用 */
 th.sortable {
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 th.sortable:hover {
-	background-color: #3581d8;
+    background-color: #3581d8;
 }
 
 /* ソートインジケーターのスタイル */
 .sort-indicator {
-	cursor: pointer;
-	font-size: 20px;
-	color: #ffffff;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ffffff;
+    transition: color 0.3s ease; /* ソートアイコンの色 */
 }
 
 /* マーク状態 */
 .sort-indicator.marked {
-	color: #f0c419;
+    color: var(--star-color);
 }
 
 .sort-indicator.unmarked {
-	color: #ccc; 
+    color: #ccc;
 }
 
-/* チェック状態 */
 .sort-indicator.checked {
-	color: #4caf50; 
+    color: var(--checkmark-color);
 }
 
 .sort-indicator.unchecked {
-	color: #ff5252; 
+    color: #ff5252;
 }
 
 /* コンテキストメニュー全体 */
 .context-menu {
-    position: absolute; /* 右クリック位置に配置するため */
-    display: none; /* 初期状態では非表示 */
-    background-color: #ffffff; /* 背景色 */
-    border: 1px solid #ccc; /* 枠線 */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影 */
-    border-radius: 4px; /* 角を丸める */
-    z-index: 1000; /* 他の要素より前面に表示 */
-    width: 150px; /* メニューの幅 */
-    padding: 5px 0; /* 上下の余白 */
+    position: absolute;
+    display: none;
+    background-color: var(--container-bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0px 4px 6px var(--shadow-color);
+    border-radius: 4px;
+    z-index: 1000;
+    width: 150px;
+    padding: 5px 0;
+    transition: background-color 0.3s ease, color 0.3s ease; /* コンテキストメニュー */
 }
 
 /* コンテキストメニュー内のリスト */
@@ -216,33 +273,33 @@ th.sortable:hover {
 
 /* 各メニュー項目 */
 .context-menu li {
-    padding: 10px; 
+    padding: 10px;
     cursor: pointer;
     text-align: left;
     font-size: 14px;
-	font-weight: bold;
-	transition: background-color 0.3s ease;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ホバー時のスタイル */
 .context-menu li:hover {
-    background-color: #f0f0f0; /* ホバー時の背景色 */
+    background-color: var(--hover-color);
 }
 
 .context-menu li#edit {
-	color: #00ad34;
-	transition: color 0.3s ease;
+    color: #00ad34;
+    transition: color 0.3s ease;
 }
 
 .context-menu li#delete {
-	color: red;
-	transition: color 0.3s ease;
+    color: red;
+    transition: color 0.3s ease;
 }
 
 .context-menu li#edit:hover {
-	color: #00611d;
+    color: #00611d;
 }
 
 .context-menu li#delete:hover {
-	color: #7d0000;
+    color: #7d0000;
 }

@@ -15,7 +15,6 @@ window.onload = () => {
 };
 
 // データをロードしてフォームにセット
-// データをロードしてフォームにセット
 async function loadWordData(wordId) {
 	try {
 		const response = await fetch(`/api/words/${wordId}`);
@@ -78,20 +77,46 @@ async function loadWordData(wordId) {
 async function submitForm() {
 	const params = new URLSearchParams(window.location.search);
 	const wordId = params.get('id'); // URLの?id=123 を取得
-	console.log('取得したwordId:', wordId); // デバッグ用
 
-	const word = document.getElementById('word').value;
-	const meanings = Array.from(document.querySelectorAll('.meaning-group')).map(group => {
+	const word = document.getElementById('word').value.trim(); // 空白をトリム
+	const meanings = Array.from(document.querySelectorAll('.meaning-group')).map((group, index) => {
 		const partOfSpeech = group.querySelector('.part-of-speech').value;
-		const meaning = group.querySelector('.meaning').value;
-		return partOfSpeech ? `(${partOfSpeech})${meaning}` : meaning;
-	}).join(', ');
+		const meaning = group.querySelector('.meaning').value.trim(); // 空白をトリム
+		return {
+			index: index + 1, // 意味のインデックスを取得（1始まり）
+			partOfSpeech: partOfSpeech,
+			meaning: meaning,
+			fullText: partOfSpeech ? `(${partOfSpeech})${meaning}` : meaning, // 品詞付きのテキスト
+		};
+	});
+
+	// **エラーチェック**
+	let errorMessages = [];
+	if (!word) {
+		errorMessages.push('単語フィールドを入力してください。');
+	}
+
+	// 空白の意味を検出してエラーメッセージに追加
+	meanings.forEach(meaningObj => {
+		if (!meaningObj.meaning) {
+			errorMessages.push(`意味フィールドの ${meaningObj.index} 番目が空白です。`);
+		}
+	});
+
+	// エラーがあればアラートを表示して処理を中断
+	if (errorMessages.length > 0) {
+		alert(errorMessages.join('\n')); // 複数のエラーメッセージを改行で連結
+		return;
+	}
+
+	// 意味をカンマ区切りで結合
+	const meaningText = meanings.map(meaningObj => meaningObj.fullText).join(', ');
 
 	const formData = {
 		word: word,
-		meaning: meanings,
-		exampleSentence: document.getElementById('exampleSentence').value,
-		memo: document.getElementById('memo').value,
+		meaning: meaningText,
+		exampleSentence: document.getElementById('exampleSentence').value.trim(),
+		memo: document.getElementById('memo').value.trim(),
 	};
 
 	try {
