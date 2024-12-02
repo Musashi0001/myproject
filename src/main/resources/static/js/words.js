@@ -120,6 +120,27 @@ function setupSortAndFilterEvents() {
 	});
 }
 
+//ソートリセット
+function resetFilters() {
+    // ソート状態を初期化
+    sortState = {
+        word: 'default',
+        mark: 'default',
+        learned: 'default',
+    };
+
+    // 検索ボックスとフィルタをクリア
+    document.getElementById('search').value = '';
+    document.getElementById('search-filter').value = 'all';
+
+    // ツールチップとインジケーターを更新
+    updateTooltips();
+    updateSortIndicators();
+
+    // ソート・フィルタを再適用
+    applySortAndFilter();
+}
+
 // 検索対象オプション
 function setupSearch() {
 	const searchInput = document.getElementById('search');
