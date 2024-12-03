@@ -48,7 +48,7 @@ body {
     color: var(--text-color);
     margin: 0;
     padding: 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .container {
@@ -58,13 +58,13 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px var(--shadow-color);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 h1 {
     text-align: center;
     color: var(--text-color);
-    transition: color 0.3s ease;
+    transition: color 0.5s ease;
 }
 
 form {
@@ -77,12 +77,12 @@ label {
     font-weight: bold;
     margin-bottom: 5px;
     color: var(--text-color);
-    transition: color 0.3s ease;
+    transition: color 0.5s ease;
 }
 
 .required {
     color: red;
-    transition: color 0.3s ease;
+    transition: color 0.5s ease;
 }
 
 /* テキストボックスのデザイン */
@@ -94,7 +94,7 @@ input[type="text"] {
     font-size: 20px;
 	color: var(--text-color);
     box-sizing: border-box;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    transition: border-color 0.5s ease, background-color 0.5s ease;
 }
 
 input[type="text"]:focus {
@@ -112,7 +112,7 @@ textarea {
 	color: var(--text-color);
     box-sizing: border-box;
     background-color: var(--input-bg-color);
-    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
     resize: vertical;
 }
 
@@ -129,7 +129,7 @@ button {
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .btn-primary {
@@ -168,7 +168,7 @@ button {
 	color: var(--text-color);
     background-color: var(--input-bg-color);
 	cursor: pointer;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    transition: border-color 0.5s ease, background-color 0.5s ease;
 }
 
 /* フォーカス時（クリック時）の色変更 */
@@ -181,8 +181,6 @@ button {
 .meaning-group input.meaning {
     flex-grow: 1;
     width: 100%;
-    background-color: var(--input-bg-color);
-    transition: background-color 0.3s ease;
 }
 
 .button-group {

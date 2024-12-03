@@ -23,7 +23,8 @@
 			</select>
 		</div>
 		<div class="button-container">
-			<button type="button" onclick="location.href='/words/new-word'" class="btn-primary">単語登録</button>
+			<button type="button" onclick="" class="btn-quiz">単語テスト</button>
+			<button type="button" onclick="location.href='/words/new-word'" class="btn-reg">単語登録</button>
 		</div>
 		<table border="1">
 			<caption>単語一覧</caption>
@@ -43,12 +44,44 @@
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div id="context-menu" class="context-menu">
 		<ul>
 			<li id="edit" onclick="editWord(event)">編集</li>
 			<li id="delete" onclick="deleteWord(event)">削除</li>
 		</ul>
+	</div>
+
+	<!-- モーダル -->
+	<div id="quiz-modal" class="modal">
+		<div class="modal-content">
+			<span class="close" id="close-modal">&times;</span>
+			<h2>テスト設定</h2>
+			<form id="quiz-form">
+				<div class="form-group">
+					<label for="quiz-type">出題形式</label>
+					<select id="quiz-type" name="quizType">
+						<option value="ja-en">日本語 → 英語</option>
+						<option value="en-ja">英語 → 日本語</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="quiz-filter">フィルタ</label>
+					<select id="quiz-filter" name="quizFilter">
+						<option value="random">ランダム</option>
+						<option value="marked">マーク済み</option>
+						<option value="unmarked">未マーク</option>
+						<option value="checked">覚えた！</option>
+						<option value="unchecked">未チェック</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="question-count">問題数</label>
+					<input type="number" id="question-count" name="questionCount" min="1" value="10" placeholder="未入力の場合は全問">
+				</div>
+				<button type="button" id="start-quiz" class="btn-reg">開始</button>
+			</form>
+		</div>
 	</div>
 
 	<script th:src="@{/js/words.js}"></script>

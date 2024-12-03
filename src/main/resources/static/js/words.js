@@ -122,23 +122,23 @@ function setupSortAndFilterEvents() {
 
 //ソートリセット
 function resetFilters() {
-    // ソート状態を初期化
-    sortState = {
-        word: 'default',
-        mark: 'default',
-        learned: 'default',
-    };
+	// ソート状態を初期化
+	sortState = {
+		word: 'default',
+		mark: 'default',
+		learned: 'default',
+	};
 
-    // 検索ボックスとフィルタをクリア
-    document.getElementById('search').value = '';
-    document.getElementById('search-filter').value = 'all';
+	// 検索ボックスとフィルタをクリア
+	document.getElementById('search').value = '';
+	document.getElementById('search-filter').value = 'all';
 
-    // ツールチップとインジケーターを更新
-    updateTooltips();
-    updateSortIndicators();
+	// ツールチップとインジケーターを更新
+	updateTooltips();
+	updateSortIndicators();
 
-    // ソート・フィルタを再適用
-    applySortAndFilter();
+	// ソート・フィルタを再適用
+	applySortAndFilter();
 }
 
 // 検索対象オプション
@@ -399,3 +399,39 @@ async function deleteWord() {
 		alert('エラーが発生しました。');
 	}
 }
+
+// モーダルの要素を取得
+const modal = document.getElementById("quiz-modal");
+const openModalBtn = document.querySelector(".btn-quiz");
+const closeModalBtn = document.getElementById("close-modal");
+const startQuizBtn = document.getElementById("start-quiz");
+
+// モーダルを表示
+openModalBtn.addEventListener("click", () => {
+	modal.classList.add('show');
+});
+
+// モーダルを閉じる
+closeModalBtn.addEventListener("click", () => {
+	modal.classList.remove('show');
+});
+
+// 外側をクリックしてモーダルを閉じる
+window.addEventListener("click", (event) => {
+	if (event.target === modal) {
+		modal.classList.remove('show');
+	}
+});
+
+// テスト開始ボタンの動作
+startQuizBtn.addEventListener("click", () => {
+	const quizType = document.getElementById("quiz-type").value;
+	const quizFilter = document.getElementById("quiz-filter").value;
+	const questionCount = document.getElementById("question-count").value;
+
+	console.log(`出題形式: ${quizType}, フィルタ: ${quizFilter}, 問題数: ${questionCount}`);
+	alert("テスト開始！（この部分でクイズ機能を実装）");
+
+	// モーダルを閉じる
+	modal.classList.remove('show');
+});
